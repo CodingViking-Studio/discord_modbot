@@ -13,6 +13,22 @@ try:
 except:
     raise
 
+rules = """
+Welcome to Coding Vikings' realm!
+Please read the rules and accept them in the Channel "welcome"
+
+Rules
+1. No racism or pornographic content
+2. Have respect
+3. No sexual harassment
+4. Don't beg for higher rights
+5. Not listening to Kings or Jarls can end in a permanent ban from our realm!
+"""
+
+chat_commands = {
+    '/skal': 'SKAL!!',
+    '/rules': rules
+}
 
 @bot.event
 async def on_ready():
@@ -24,7 +40,9 @@ async def on_message(message):
     if message.author == bot.user:
         return
 
-    if message.content.startswith('/skal'):
-        await message.channel.send(f'SKAL, {message.author}!!')
+    for key in chat_commands.keys():
+        if message.content.startswith(key):
+            await message.channel.send(chat_commands[key])
+            break
 
 bot.run(token=r_token)
