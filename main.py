@@ -50,4 +50,5 @@ async def on_message(message):
         print("Updating commandtree")
         await tree.sync(guild=discord.Object(id=1133683869317595186))
 
+
 bot.run(token=r_token)
