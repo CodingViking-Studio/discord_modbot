@@ -113,12 +113,12 @@ Rules
 def drinking_greets(username):
     dg = [
         f"SKÅL, {username}!!",
-        f"To you my brother!",
+        "To you my brother!",
         f"You fought well in our last battle {username}, skål!",
-        f"Anotherone ?, lets see who last longer!",
+        "Anotherone ?, lets see who lasts longer!",
         f"Look at {username}, he is completly drunk again"
     ]
-    return drinking_greets[randint(0, len(dg))]
+    return dg[randint(0, len(dg))]
 
 
 @bot.event
@@ -134,12 +134,12 @@ async def skal(interaction):
 
 @tree.command(name="rules", description="Get all current rules")
 async def rules(interaction):
-    await interaction.user.send(main_rules)
+    await interaction.response.send_message(main_rules)
 
 
 @tree.command(name="minecraft", description="Get all Minecraft serverdata")
 async def minecraft(interaction):
-    await interaction.user.send(mc_server_info)
+    await interaction.response.send_message(mc_server_info)
 
 
 @tree.command(name="mc_whitelist", description="Manipulate the Whitelist of the Minecraft server")
@@ -153,7 +153,7 @@ async def mc_whitelist(interaction, name: str, option: str):
             case _:
                 pass
     else:
-        await interaction.user.send("You got no permission to execute this command!")
+        await interaction.response.send_message("You got no permission to execute this command!")
 
 
 @tree.command(name="translate", description="Get your text translated to the elder furthark")
