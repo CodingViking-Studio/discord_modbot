@@ -103,7 +103,7 @@ async def mc_whitelist(interaction, name: str, option: str):
 @tree.command(name="translate", description="Get your text translated to the elder furthark")
 async def translator(interaction, txt: str):
     translated  = [(ef_t2r[c.upper()]) if c.upper() in ef_t2r.keys() else (c) for c in txt]
-    await interaction.response.send_message(str(translated))
+    await interaction.response.send_message("".join(translated))
 
 
 @bot.event
