@@ -162,14 +162,21 @@ async def translator(interaction: discord.Interaction, txt: str):
     await interaction.response.send_message("".join(translated))
 
 
+@bot.tree.command(name="test", description="testo")
+async def test(interaction: discord.Interaction):
+    await interaction.response.send_message("test")
+
+
 @bot.command()
 async def sync(interaction: discord.Interaction):
-    print("sync command")
+    print("sync commands")
     if interaction.author.id == 224515637291122688:
-        synced = await bot.tree.sync()
-        await interaction.send(f'Command tree synced ({synced} commands). It can take up to an hour to sync all commands')
+        bot.tree.copy_global_to(guild=discord.Object(id=1133683869317595186))
+        synced = await bot.tree.sync(guild=discord.Object(id=1133683869317595186))
+        await bot.tree.sync()
+        await interaction.send(f'Command tree synced ({len(synced)} commands). It can take up to an hour to sync all commands')
     else:
         await interaction.send('You must be the owner to use this command!')
-
+    return
 
 bot.run(token=r_token)
