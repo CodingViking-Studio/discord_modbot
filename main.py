@@ -143,13 +143,17 @@ async def minecraft(interaction: discord.Interaction):
 
 
 @bot.tree.command(name="mc_whitelist", description="Manipulate the Whitelist of the Minecraft server")
-async def mc_whitelist(interaction: discord.Interaction, name: str, option: str):
-    if 'King' in interaction.user.roles:
-        match option:
-            case "add":
-                await interaction.user.send(f"The user {name} has been added")
-            case "remove":
-                await interaction.user.send(f"The user {name} has been removed")
+@discord.app_commands.choices(option=[
+    discord.app_commands.Choice(name='add', value=1),
+    discord.app_commands.Choice(name='remove', value=2)
+])
+async def mc_whitelist(interaction: discord.Interaction, name: str, option: discord.app_commands.Choice[int]):
+    if interaction.user.id == 224515637291122688 or 'King' in interaction.user.roles[-1].name:
+        match option.value:
+            case 1:
+                await interaction.response.send_message(f"The user {name} has been added")
+            case 2:
+                await interaction.response.send_message(f"The user {name} has been removed")
             case _:
                 pass
     else:
@@ -173,8 +177,8 @@ async def sync(interaction: discord.Interaction):
     if interaction.author.id == 224515637291122688:
         # Remove Guild specific, when not used anymore! Only DEBUG
         bot.tree.copy_global_to(guild=discord.Object(id=1133683869317595186))
-        synced = await bot.tree.sync(guild=discord.Object(id=1133683869317595186))
-        await bot.tree.sync()
+        # synced = await bot.tree.sync(guild=discord.Object(id=1133683869317595186))
+        synced = await bot.tree.sync()
         await interaction.send(f'Command tree synced ({len(synced)} commands). It can take up to an hour to sync all commands')
     else:
         await interaction.send('You must be the owner to use this command!')
