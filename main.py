@@ -2,6 +2,8 @@ import json
 import discord
 from random import randint
 
+test = ""
+
 a_intents = discord.Intents.default()
 a_intents.message_content = True
 
