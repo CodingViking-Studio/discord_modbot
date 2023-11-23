@@ -2,6 +2,9 @@ import json
 import discord
 from random import randint
 
+dev_channel_id = 1135190464484606035
+server_id = 1133683869317595186
+
 a_intents = discord.Intents.default()
 a_intents.message_content = True
 
@@ -59,8 +62,11 @@ def drinking_greets(username):
 
 @bot.event
 async def on_ready():
-    await tree.sync(guild=discord.Object(id=1133683869317595186))
+    channel = bot.get_channel(dev_channel_id)
+    await tree.sync(guild=discord.Object(id=server_id))
     print(f"We have logged in as {bot.user}")
+    print('fetched', channel.fetch_message(1135223332174835862))
+    await channel.send('Hello Im online now!')
 
 
 @tree.command(name="skal", description="Greet Ubba!")
@@ -96,7 +102,7 @@ async def rules(interaction, name: str, option: str):
 async def on_message(message):
     if message.content.startswith("/update_tree"):
         print("Updating commandtree")
-        await tree.sync(guild=discord.Object(id=1133683869317595186))
+        await tree.sync(guild=discord.Object(id=server_id))
 
 
 bot.run(token=r_token)
