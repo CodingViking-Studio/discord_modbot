@@ -166,8 +166,8 @@ async def translator(interaction: discord.Interaction, txt: str):
 async def sync(interaction: discord.Interaction):
     print("sync command")
     if interaction.author.id == 224515637291122688:
-        await bot.tree.sync()
-        await interaction.send('Command tree synced. It can take up to an hour to sync all commands')
+        synced = await bot.tree.sync()
+        await interaction.send(f'Command tree synced ({synced} commands). It can take up to an hour to sync all commands')
     else:
         await interaction.send('You must be the owner to use this command!')
 
