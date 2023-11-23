@@ -171,6 +171,7 @@ async def test(interaction: discord.Interaction):
 async def sync(interaction: discord.Interaction):
     print("sync commands")
     if interaction.author.id == 224515637291122688:
+        # Remove Guild specific, when not used anymore! Only DEBUG
         bot.tree.copy_global_to(guild=discord.Object(id=1133683869317595186))
         synced = await bot.tree.sync(guild=discord.Object(id=1133683869317595186))
         await bot.tree.sync()
