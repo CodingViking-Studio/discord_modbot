@@ -144,7 +144,7 @@ async def minecraft(interaction: discord.Interaction):
 
 @bot.tree.command(name="mc_whitelist", description="Manipulate the Whitelist of the Minecraft server")
 async def mc_whitelist(interaction: discord.Interaction, name: str, option: str):
-    if interaction.user.permission == "Admin":
+    if 'King' in interaction.user.roles:
         match option:
             case "add":
                 await interaction.user.send(f"The user {name} has been added")
