@@ -16,13 +16,69 @@ try:
 except:
     raise
 
-try:
-    with open("resources/runes_translation.json", "r") as f:
-        rt = json.load(f)
-        ef_t2r = rt["elter_furthark"]["text2runes"]
-        ef_r2t = rt["elter_furthark"]["runes2text"]
-except:
-    raise
+rt = {
+    "elter_furthark": {
+            "text2runes": {
+                "A": "ᚨ",
+                "B": "ᛒ",
+                "C": "ᚲ",
+                "D": "ᛞ",
+                "E": "ᛖ",
+                "F": "ᚠ",
+                "G": "ᚷ",
+                "H": "ᚺ",
+                "I": "ᛁ",
+                "J": "ᛃ",
+                "K": "ᚲ",
+                "L": "ᛚ",
+                "M": "ᛗ",
+                "N": "ᚾ",
+                "O": "ᛟ",
+                "P": "ᛈ",
+                "Q": "ᚲ",
+                "R": "ᚱ",
+                "S": "ᛊ",
+                "T": "ᛏ",
+                "U": "ᚢ",
+                "V": "ᚢ",
+                "W": "ᚹ",
+                "X": "ᚲᛊ",
+                "Y": "ᛁ",
+                "Z": "ᛉ"
+            },
+            "runes2text":{
+                "ᚨ": "A",
+                "ᛒ": "B",
+                "ᚲ": "C",
+                "ᛞ": "D",
+                "ᛖ": "E",
+                "ᚠ": "F",
+                "ᚷ": "G",
+                "ᚺ": "H",
+                "ᛁ": "I",
+                "ᛃ": "J",
+                "ᚲ": "K",
+                "ᛚ": "L",
+                "ᛗ": "M",
+                "ᚾ": "N",
+                "ᛟ": "O",
+                "ᛈ": "P",
+                "ᚲ": "Q",
+                "ᚱ": "R",
+                "ᛊ": "S",
+                "ᛏ": "T",
+                "ᚢ": "U",
+                "ᚢ": "V",
+                "ᚹ": "W",
+                "ᚲᛊ": "X",
+                "ᛁ": "Y",
+                "ᛉ": "Z"
+            }
+        }
+    }
+
+ef_t2r = rt["elter_furthark"]["text2runes"]
+ef_r2t = rt["elter_furthark"]["runes2text"]
 
 
 main_rules = """
