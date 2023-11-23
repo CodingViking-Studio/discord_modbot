@@ -1,12 +1,13 @@
 import json
 import discord
+from discord.ext import commands
 from random import randint
 
 a_intents = discord.Intents.default()
 a_intents.message_content = True
 
-bot = discord.Client(intents=a_intents)
-tree = discord.app_commands.CommandTree(bot)
+bot = commands.Bot(command_prefix="/", intents=a_intents,
+                   case_insensitive=False,)
 
 
 try:
@@ -123,27 +124,26 @@ def drinking_greets(username):
 
 @bot.event
 async def on_ready():
-    await tree.sync(guild=discord.Object(id=1133683869317595186))
     print(f"We have logged in as {bot.user}")
 
 
-@tree.command(name="skal", description="Greet Ubba!")
-async def skal(interaction):
+@bot.tree.command(name="skal", description="Greet Ubba!")
+async def skal(interaction: discord.Interaction):
     await interaction.response.send_message(drinking_greets(interaction.user))
 
 
-@tree.command(name="rules", description="Get all current rules")
-async def rules(interaction):
+@bot.tree.command(name="rules", description="Get all current rules")
+async def rules(interaction: discord.Interaction):
     await interaction.response.send_message(main_rules)
 
 
-@tree.command(name="minecraft", description="Get all Minecraft serverdata")
-async def minecraft(interaction):
+@bot.tree.command(name="minecraft", description="Get all Minecraft serverdata")
+async def minecraft(interaction: discord.Interaction):
     await interaction.response.send_message(mc_server_info)
 
 
-@tree.command(name="mc_whitelist", description="Manipulate the Whitelist of the Minecraft server")
-async def mc_whitelist(interaction, name: str, option: str):
+@bot.tree.command(name="mc_whitelist", description="Manipulate the Whitelist of the Minecraft server")
+async def mc_whitelist(interaction: discord.Interaction, name: str, option: str):
     if interaction.user.permission == "Admin":
         match option:
             case "add":
@@ -156,17 +156,20 @@ async def mc_whitelist(interaction, name: str, option: str):
         await interaction.response.send_message("You got no permission to execute this command!")
 
 
-@tree.command(name="translate", description="Get your text translated to the elder furthark")
-async def translator(interaction, txt: str):
-    translated  = [(ef_t2r[c.upper()]) if c.upper() in ef_t2r.keys() else (c) for c in txt]
+@bot.tree.command(name="translate", description="Get your text translated to the elder furthark")
+async def translator(interaction: discord.Interaction, txt: str):
+    translated = [(ef_t2r[c.upper()]) if c.upper() in ef_t2r.keys() else (c) for c in txt]
     await interaction.response.send_message("".join(translated))
 
 
-@bot.event
-async def on_message(message):
-    if message.content.startswith("/update_tree"):
-        print("Updating commandtree")
-        await tree.sync(guild=discord.Object(id=1133683869317595186))
+@bot.command()
+async def sync(interaction: discord.Interaction):
+    print("sync command")
+    if interaction.author.id == 224515637291122688:
+        await bot.tree.sync()
+        await interaction.send('Command tree synced. It can take up to an hour to sync all commands')
+    else:
+        await interaction.send('You must be the owner to use this command!')
 
 
 bot.run(token=r_token)
