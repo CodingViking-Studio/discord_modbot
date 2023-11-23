@@ -16,6 +16,14 @@ try:
 except:
     raise
 
+try:
+    with open("resources/runes_translation.json", "r") as f:
+        rt = json.load(f)
+        ef_t2r = rt["elter_furthark"]["text2runes"]
+        ef_r2t = rt["elter_furthark"]["runes2text"]
+except:
+    raise
+
 
 main_rules = """
 Welcome to Coding Vikings' realm!
@@ -47,14 +55,14 @@ Rules
 
 
 def drinking_greets(username):
-    drinking_greets = [
+    dg = [
         f"SKÅL, {username}!!",
         f"To you my brother!",
         f"You fought well in our last battle {username}, skål!",
         f"Anotherone ?, lets see who last longer!",
         f"Look at {username}, he is completly drunk again"
     ]
-    return drinking_greets[randint(0, len(drinking_greets))]
+    return drinking_greets[randint(0, len(dg))]
 
 
 @bot.event
@@ -74,12 +82,12 @@ async def rules(interaction):
 
 
 @tree.command(name="minecraft", description="Get all Minecraft serverdata")
-async def rules(interaction):
+async def minecraft(interaction):
     await interaction.user.send(mc_server_info)
 
 
 @tree.command(name="mc_whitelist", description="Manipulate the Whitelist of the Minecraft server")
-async def rules(interaction, name: str, option: str):
+async def mc_whitelist(interaction, name: str, option: str):
     if interaction.user.permission == "Admin":
         case option:
             "add":
@@ -90,6 +98,12 @@ async def rules(interaction, name: str, option: str):
                 pass
     else
         await interaction.user.send("You got no permission to execute this command!")
+
+
+@tree.command(name="translate", description="Get your text translated to the elder furthark")
+async def translator(interaction, txt: str):
+    translated  = [(ef_t2r[c]) if c == ef_t2r.keys else (c) for c in txt]
+    await interaction.response.send_message(str(translated))
 
 
 @bot.event
