@@ -17,6 +17,11 @@ try:
 except:
     raise
 
+pfp_path = "./data/profilepic.jpg"
+
+fp = open(pfp_path, 'rb')
+pfp = fp.read()
+
 rt = {
     "elter_furthark": {
             "text2runes": {
@@ -124,6 +129,7 @@ def drinking_greets(username):
 
 @bot.event
 async def on_ready():
+    await bot.user.edit(avatar=pfp)
     print(f"We have logged in as {bot.user}")
 
 
