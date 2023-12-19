@@ -132,11 +132,11 @@ def drinking_greets(username):
 async def on_ready():
     await bot.user.edit(avatar=pfp)
     print(f"We have logged in as {bot.user}")
-    if main_rules[message_id] == "":
-        msg = dev_channel_id.send_message(main_rules(content))
-        print(msg.id)
+    if main_rules["message_id"] == "":
+        msg = dev_channel_id.send_message(main_rules["content"])
+        print("send", msg.id)
     else:
-        print('fetched', dev_channel_id.fetch_message(main_rules[message_id]))
+        print('fetched', dev_channel_id.fetch_message(main_rules["message_id"]))
 
 @bot.tree.command(name="skal", description="Greet Ubba!")
 async def skal(interaction: discord.Interaction):
