@@ -1,9 +1,6 @@
 import json
 import discord
 from random import randint
-
-dev_channel_id = 1135190464484606035
-server_id = 1133683869317595186
 from discord.ext import commands
 from random import randint
 
