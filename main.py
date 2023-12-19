@@ -93,18 +93,12 @@ rt = {
 ef_t2r = rt["elter_furthark"]["text2runes"]
 ef_r2t = rt["elter_furthark"]["runes2text"]
 
-
-main_rules = """
-Welcome to Coding Vikings' realm!
-Please read the rules and accept them in the Channel "welcome"
-
-Rules
-1. No racism or pornographic content
-2. Have respect
-3. No sexual harassment
-4. Don't beg for higher rights
-5. Not listening to Kings or Jarls can end in a permanent ban from our realm!
-"""
+try:
+    with open("resources/messages.json", "r") as f:
+        content = json.load(f)
+        main_rules = content["rules"]
+except:
+    raise
 
 mc_server_info = """
 Want to play on our own Server ?
@@ -138,7 +132,11 @@ def drinking_greets(username):
 async def on_ready():
     await bot.user.edit(avatar=pfp)
     print(f"We have logged in as {bot.user}")
-    print('fetched', channel.fetch_message(1135223332174835862))
+    if main_rules[message_id] == "":
+        msg = dev_channel_id.send_message(main_rules(content))
+        print(msg.id)
+    else:
+        print('fetched', dev_channel_id.fetch_message(main_rules[message_id]))
 
 @bot.tree.command(name="skal", description="Greet Ubba!")
 async def skal(interaction: discord.Interaction):
