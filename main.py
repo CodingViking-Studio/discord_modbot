@@ -3,6 +3,7 @@ import discord
 from random import randint
 from discord.ext import commands
 from random import randint
+from databases import gen_db
 
 dev_channel_id = 1135190464484606035
 server_id = 1133683869317595186
@@ -13,16 +14,17 @@ a_intents.message_content = True
 bot = commands.Bot(command_prefix="/", intents=a_intents,
                    case_insensitive=False,)
 
-msg_db = 
-
 try:
     with open("config.json", "r") as f:
         content = json.load(f)
         r_token = content["discord_token"]
+        bn = content['bot_name']
 except:
     raise
 
-pfp_path = "./data/profilepic.jpg"
+msg_db = gen_db('resources/{bn}')
+
+pfp_path = "./data/profilepic_{bn}.jpg"
 
 fp = open(pfp_path, 'rb')
 pfp = fp.read()
