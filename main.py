@@ -139,10 +139,6 @@ async def on_ready():
     await bot.user.edit(avatar=pfp)
     print(f"We have logged in as {bot.user}")
     print('fetched', channel.fetch_message(1135223332174835862))
-    await channel.send('Hello Im online now!')
-    print('fetched', channel.fetch_message(1135223332174835862))
-    await channel.send('Hello Im online now!')
-
 
 @bot.tree.command(name="skal", description="Greet Ubba!")
 async def skal(interaction: discord.Interaction):
