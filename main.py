@@ -1,5 +1,9 @@
 import json
 import discord
+from random import randint
+
+dev_channel_id = 1135190464484606035
+server_id = 1133683869317595186
 from discord.ext import commands
 from random import randint
 
@@ -134,6 +138,8 @@ def drinking_greets(username):
 async def on_ready():
     await bot.user.edit(avatar=pfp)
     print(f"We have logged in as {bot.user}")
+    print('fetched', channel.fetch_message(1135223332174835862))
+    await channel.send('Hello Im online now!')
     print('fetched', channel.fetch_message(1135223332174835862))
     await channel.send('Hello Im online now!')
 
