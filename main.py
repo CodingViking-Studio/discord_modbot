@@ -99,21 +99,7 @@ ef_r2t = rt["elter_furthark"]["runes2text"]
 
 main_rules = msg_db.get_msg("main_rules")[-1]
 
-mc_server_info = """
-Want to play on our own Server ?
-
-Here you go! Ask a King for permission and get Whitelistet.
-
-IP:
-
-Rules
-1. No griefing
-2. No killig of other players (Outside of official events or with consent of your opponent!)
-3. Please leave room between your Builds. (Estimated Radius of 500 Blocks)
-4. We want an medieval Server theme, so please only build in this style too
-5. If you want to build a Farm or need one, message a King or Jarl first. Maybe there is
-   already one. If you are the First, please build it somewhere, where everyone can use it!
-"""
+mc_server_info = msg_db.get_msg("mcs_info")[-1]
 
 
 def drinking_greets(username):
