@@ -13,6 +13,7 @@ a_intents.message_content = True
 bot = commands.Bot(command_prefix="/", intents=a_intents,
                    case_insensitive=False,)
 
+msg_db = 
 
 try:
     with open("config.json", "r") as f:
