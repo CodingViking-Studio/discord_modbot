@@ -123,6 +123,8 @@ class gen_db():
         Returns:
             list: returns a List of all Informations
             for that specific message
+
+            (uid, msg_id, msg_name, msg_content)
         """
         # Get Message based on name
         self.__curs.execute(f"""
@@ -132,7 +134,7 @@ class gen_db():
                             """)
         extracted_data = self.__curs.fetchall()
         self.__db.commit()
-        return extracted_data
+        return extracted_data[0]
 
     def get_all_msgs(self) -> list:
         """
@@ -149,6 +151,49 @@ class gen_db():
         extracted_data = self.__curs.fetchall()
         self.__db.commit()
         return extracted_data
+
+    def change_msg(self, new_content: str, msg_name: str) -> str:
+        """
+        Change content of message.
+
+        Args:
+            new_content (str): new Message content text
+
+            msg_name (str): the name of the message you want to change
+
+        Returns:
+            str: Returns the new Data
+        """
+        if not self.check_user(msg_name)[0]:
+            return "ERROR"
+        else:
+            _, uid = self.check_user(msg_name)
+        # Get/Check Private Data
+        self.__curs.execute(f"""
+                            SELECT *
+                            FROM MESSAGES
+                            WHERE UID='{uid}'
+                            """)
+        data_PD = self.__curs.fetchall()
+        if len(data_PD) == 1:
+            uid, msg_id, msg_name, msg_content = data_PD[0]
+            print(f"The Message with the ID {uid}, has been found. \
+                  Getting and Updating Data")
+
+            sql_sttmnt_PD = f"""
+                            UPDATE MESSAGES
+                            SET
+                            MSG_CONTENT = ?
+                            WHERE UID={uid}
+                            """
+
+            self.__curs.execute(sql_sttmnt_PD, [new_content])
+
+        elif len(data_PD) > 1:
+            print("Es wurden mehrer Messages mit der gleichen ID gefunden. \
+                  Bitte wenden sie sich an ihren Andministrator!")
+        else:
+            print(f"NO Message with the id {uid}, has been found.")
 
     def del_msg(self, msg_uid: int, msg_name: str) -> None:
         """

@@ -5,9 +5,6 @@ from discord.ext import commands
 from random import randint
 from databases import gen_db
 
-dev_channel_id = 1135190464484606035
-server_id = 1133683869317595186
-
 a_intents = discord.Intents.default()
 a_intents.message_content = True
 
@@ -19,10 +16,16 @@ try:
         content = json.load(f)
         r_token = content["discord_token"]
         bn = content['bot_name']
+        rules_channel_id = 1135190464484606035
+        server_id = 1133683869317595186
 except:
     raise
 
 msg_db = gen_db('resources/{bn}')
+
+# Just generate on First start
+if len(msg_db.get_all_msgs()) < 1:
+    exit()
 
 pfp_path = "./data/profilepic_{bn}.jpg"
 
@@ -93,12 +96,8 @@ rt = {
 ef_t2r = rt["elter_furthark"]["text2runes"]
 ef_r2t = rt["elter_furthark"]["runes2text"]
 
-try:
-    with open("resources/messages.json", "r") as f:
-        content = json.load(f)
-        main_rules = content["rules"]
-except:
-    raise
+
+main_rules = msg_db.get_msg("main_rules")[-1]
 
 mc_server_info = """
 Want to play on our own Server ?
@@ -133,10 +132,10 @@ async def on_ready():
     await bot.user.edit(avatar=pfp)
     print(f"We have logged in as {bot.user}")
     if main_rules["message_id"] == "":
-        msg = dev_channel_id.send_message(main_rules["content"])
+        msg = rules_channel_id.send_message(main_rules["content"])
         print("send", msg.id)
     else:
-        print('fetched', dev_channel_id.fetch_message(main_rules["message_id"]))
+        print('fetched', rules_channel_id.fetch_message(main_rules["message_id"]))
 
 @bot.tree.command(name="skal", description="Greet Ubba!")
 async def skal(interaction: discord.Interaction):
@@ -187,7 +186,7 @@ async def sync(interaction: discord.Interaction):
     print("sync commands")
     if interaction.author.id == 224515637291122688:
         # Remove Guild specific, when not used anymore! Only DEBUG
-        bot.tree.copy_global_to(guild=discord.Object(id=1133683869317595186))
+        bot.tree.copy_global_to(guild=discord.Object(id=server_id))
         # synced = await bot.tree.sync(guild=discord.Object(id=1133683869317595186))
         synced = await bot.tree.sync()
         await interaction.send(f'Command tree synced ({len(synced)} commands). It can take up to an hour to sync all commands')
