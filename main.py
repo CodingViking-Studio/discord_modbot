@@ -30,7 +30,6 @@ rt = furthark_translation
 ef_t2r = rt["elter_furthark"]["text2runes"]
 ef_r2t = rt["elter_furthark"]["runes2text"]
 
-
 main_rules = msg_db.get_msg("main_rules")[-1]
 
 mc_server_info = msg_db.get_msg("mcs_info")[-1]
