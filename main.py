@@ -34,8 +34,8 @@ ef_r2t = rt["elter_furthark"]["runes2text"]
 main_rules = msg_db.get_msg("main_rules")[-1]
 mc_server_info = msg_db.get_msg("mcs_info")[-1]
 
-
-def drinking_greets(username):
+# Helper functions
+def _drinking_greets(username):
     dg = [
         f"SKÅL, {username}!!",
         "To you my brother!",
@@ -58,7 +58,7 @@ async def on_ready():
 
 @bot.tree.command(name="skal", description="Greet Ubba!")
 async def skal(interaction: discord.Interaction):
-    await interaction.response.send_message(drinking_greets(interaction.user))
+    await interaction.response.send_message(_drinking_greets(interaction.user))
 
 
 @bot.tree.command(name="rules", description="Get all current rules")
