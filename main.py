@@ -1,6 +1,5 @@
-import json
 import discord
-from setup import configured_messages
+from setup import configured_messages, discord_server_connection, furthark_translation
 from random import randint
 from discord.ext import commands
 from random import randint
@@ -12,15 +11,7 @@ a_intents.message_content = True
 bot = commands.Bot(command_prefix="/", intents=a_intents,
                    case_insensitive=False,)
 
-try:
-    with open("config.json", "r") as f:
-        content = json.load(f)
-        r_token = content["discord_token"]
-        bn = content['bot_name']
-        rules_channel_id = 1135190464484606035
-        server_id = 1133683869317595186
-except:
-    raise
+r_token, bn, rules_channel_id, server_id = discord_server_connection()
 
 msg_db = gen_db('resources/{bn}.db')
 
@@ -34,66 +25,7 @@ pfp_path = "./data/profilepic_{bn}.jpg"
 fp = open(pfp_path, 'rb')
 pfp = fp.read()
 
-rt = {
-    "elter_furthark": {
-            "text2runes": {
-                "A": "ᚨ",
-                "B": "ᛒ",
-                "C": "ᚲ",
-                "D": "ᛞ",
-                "E": "ᛖ",
-                "F": "ᚠ",
-                "G": "ᚷ",
-                "H": "ᚺ",
-                "I": "ᛁ",
-                "J": "ᛃ",
-                "K": "ᚲ",
-                "L": "ᛚ",
-                "M": "ᛗ",
-                "N": "ᚾ",
-                "O": "ᛟ",
-                "P": "ᛈ",
-                "Q": "ᚲ",
-                "R": "ᚱ",
-                "S": "ᛊ",
-                "T": "ᛏ",
-                "U": "ᚢ",
-                "V": "ᚢ",
-                "W": "ᚹ",
-                "X": "ᚲᛊ",
-                "Y": "ᛁ",
-                "Z": "ᛉ"
-            },
-            "runes2text":{
-                "ᚨ": "A",
-                "ᛒ": "B",
-                "ᚲ": "C",
-                "ᛞ": "D",
-                "ᛖ": "E",
-                "ᚠ": "F",
-                "ᚷ": "G",
-                "ᚺ": "H",
-                "ᛁ": "I",
-                "ᛃ": "J",
-                "ᚲ": "K",
-                "ᛚ": "L",
-                "ᛗ": "M",
-                "ᚾ": "N",
-                "ᛟ": "O",
-                "ᛈ": "P",
-                "ᚲ": "Q",
-                "ᚱ": "R",
-                "ᛊ": "S",
-                "ᛏ": "T",
-                "ᚢ": "U",
-                "ᚢ": "V",
-                "ᚹ": "W",
-                "ᚲᛊ": "X",
-                "ᛁ": "Y",
-                "ᛉ": "Z"
-            }
-        }
-    }
+rt = furthark_translation
 
 ef_t2r = rt["elter_furthark"]["text2runes"]
 ef_r2t = rt["elter_furthark"]["runes2text"]

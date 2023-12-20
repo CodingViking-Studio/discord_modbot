@@ -1,6 +1,70 @@
 """
 Main Initial Setup Data for Variables
 """
+import json
+
+def furthark_translation() -> dict:
+    return {
+            "elter_furthark": {
+                    "text2runes": {
+                        "A": "ᚨ",
+                        "B": "ᛒ",
+                        "C": "ᚲ",
+                        "D": "ᛞ",
+                        "E": "ᛖ",
+                        "F": "ᚠ",
+                        "G": "ᚷ",
+                        "H": "ᚺ",
+                        "I": "ᛁ",
+                        "J": "ᛃ",
+                        "K": "ᚲ",
+                        "L": "ᛚ",
+                        "M": "ᛗ",
+                        "N": "ᚾ",
+                        "O": "ᛟ",
+                        "P": "ᛈ",
+                        "Q": "ᚲ",
+                        "R": "ᚱ",
+                        "S": "ᛊ",
+                        "T": "ᛏ",
+                        "U": "ᚢ",
+                        "V": "ᚢ",
+                        "W": "ᚹ",
+                        "X": "ᚲᛊ",
+                        "Y": "ᛁ",
+                        "Z": "ᛉ"
+                    },
+                    "runes2text":{
+                        "ᚨ": "A",
+                        "ᛒ": "B",
+                        "ᚲ": "C",
+                        "ᛞ": "D",
+                        "ᛖ": "E",
+                        "ᚠ": "F",
+                        "ᚷ": "G",
+                        "ᚺ": "H",
+                        "ᛁ": "I",
+                        "ᛃ": "J",
+                        "ᚲ": "K",
+                        "ᛚ": "L",
+                        "ᛗ": "M",
+                        "ᚾ": "N",
+                        "ᛟ": "O",
+                        "ᛈ": "P",
+                        "ᚲ": "Q",
+                        "ᚱ": "R",
+                        "ᛊ": "S",
+                        "ᛏ": "T",
+                        "ᚢ": "U",
+                        "ᚢ": "V",
+                        "ᚹ": "W",
+                        "ᚲᛊ": "X",
+                        "ᛁ": "Y",
+                        "ᛉ": "Z"
+                    }
+                }
+            }
+
 def configured_messages() -> list:
     return [
         {
@@ -40,3 +104,21 @@ def configured_messages() -> list:
             """
         }
     ]
+
+def discord_server_connection() -> list:
+    """Returns the Data out of Config File
+
+    Returns:
+        list: r_token; bot_name; rules_channel_id; server_id
+    """
+    try:
+        with open("config.json", "r") as f:
+            content = json.load(f)
+            r_token = content["discord_token"]
+            bot_name = content['bot_name']
+            rules_channel_id = 1135190464484606035
+            server_id = 1133683869317595186
+    except:
+        raise
+
+    return r_token, bot_name, rules_channel_id, server_id
