@@ -95,11 +95,6 @@ async def translator(interaction: discord.Interaction, txt: str):
     await interaction.response.send_message("".join(translated))
 
 
-@bot.tree.command(name="test", description="testo")
-async def test(interaction: discord.Interaction):
-    await interaction.response.send_message("test")
-
-
 @bot.command()
 async def sync(interaction: discord.Interaction):
     print("sync commands")
