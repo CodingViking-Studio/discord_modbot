@@ -1,9 +1,8 @@
 import discord
-from setup import configured_messages, discord_server_connection, furthark_translation
-from random import randint
 from discord.ext import commands
 from random import randint
 from databases import gen_db
+from setup import configured_messages, discord_server_connection, furthark_translation
 
 a_intents = discord.Intents.default()
 a_intents.message_content = True
