@@ -1,5 +1,7 @@
 import json
 import discord
+import var_setup
+from inspect import getmembers, isfunction
 from random import randint
 from discord.ext import commands
 from random import randint
@@ -21,11 +23,13 @@ try:
 except:
     raise
 
-msg_db = gen_db('resources/{bn}')
+msg_db = gen_db('resources/{bn}.db')
 
-# Just generate on First start
+# Generate entries on First start
 if len(msg_db.get_all_msgs()) < 1:
-    exit()
+    for name, _  in getmembers(var_setup, isfunction):
+        func = getattr(var_setup, name)
+        msg_db.add_msg(func())
 
 pfp_path = "./data/profilepic_{bn}.jpg"
 
