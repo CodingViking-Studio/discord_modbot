@@ -4,6 +4,7 @@ from random import randint
 from databases import gen_db
 from setup import configured_messages, discord_server_connection, furthark_translation
 
+# Setup
 a_intents = discord.Intents.default()
 a_intents.message_content = True
 
@@ -19,18 +20,18 @@ if len(msg_db.get_all_msgs()) < 1:
     for msg_data  in configured_messages():
         msg_db.add_msg(msg_data)
 
+# Profilepicture
 pfp_path = "./data/profilepic_{bn}.jpg"
-
 fp = open(pfp_path, 'rb')
 pfp = fp.read()
 
+# Translator definition
 rt = furthark_translation
-
 ef_t2r = rt["elter_furthark"]["text2runes"]
 ef_r2t = rt["elter_furthark"]["runes2text"]
 
+# Rules definition out of Database
 main_rules = msg_db.get_msg("main_rules")[-1]
-
 mc_server_info = msg_db.get_msg("mcs_info")[-1]
 
 
